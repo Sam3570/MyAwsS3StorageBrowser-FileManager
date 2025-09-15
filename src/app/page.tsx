@@ -9,9 +9,9 @@ export default function FileVaultLanding() {
     visible: {
       opacity: 1,
       transition: {
-        staggerChildren: 0.2
-      }
-    }
+        staggerChildren: 0.2,
+      },
+    },
   };
 
   const itemVariants = {
@@ -21,9 +21,9 @@ export default function FileVaultLanding() {
       y: 0,
       transition: {
         duration: 0.5,
-        ease: "easeOut"
-      }
-    }
+        ease: "easeOut" as const, // ✅ type-safe
+      },
+    },
   };
 
   const cardVariants = {
@@ -33,41 +33,41 @@ export default function FileVaultLanding() {
       y: 0,
       transition: {
         duration: 0.6,
-        ease: "easeOut"
-      }
+        ease: "easeOut" as const, // ✅ type-safe
+      },
     },
     hover: {
       y: -8,
       transition: {
         duration: 0.2,
-        ease: "easeOut"
-      }
-    }
+        ease: "easeOut" as const, // ✅ type-safe
+      },
+    },
   };
 
   return (
     <main className="pt-20">
       {/* Hero Section */}
-      <motion.section 
+      <motion.section
         className="bg-gradient-to-r from-teal-600 to-teal-400 py-16 px-6 text-center text-white"
         initial="hidden"
         animate="visible"
         variants={containerVariants}
       >
-        <motion.h1 
+        <motion.h1
           className="text-4xl font-bold mb-4"
           variants={itemVariants}
         >
           Explore and Access Securely
         </motion.h1>
-        <motion.p 
+        <motion.p
           className="text-lg mb-6"
           variants={itemVariants}
         >
-          Welcome to the <span className="font-semibold">NADT, RC File Vault</span> —
+          Welcome to the <span className="font-semibold">NADT, RC File Vault</span> — 
           your trusted space for documents and resources.
         </motion.p>
-        <motion.div 
+        <motion.div
           className="flex justify-center"
           variants={itemVariants}
         >
@@ -86,14 +86,14 @@ export default function FileVaultLanding() {
       </motion.section>
 
       {/* Features Section */}
-      <motion.section 
+      <motion.section
         className="py-16 px-6 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 bg-gray-50"
         initial="hidden"
         whileInView="visible"
         viewport={{ once: true, margin: "-100px" }}
         variants={containerVariants}
       >
-        <motion.div 
+        <motion.div
           className="p-6 bg-white rounded-2xl shadow hover:shadow-lg transition"
           variants={cardVariants}
           whileHover="hover"
@@ -101,8 +101,8 @@ export default function FileVaultLanding() {
           <h3 className="font-semibold text-lg mb-2 text-teal-700">🔒 Secure Storage</h3>
           <p className="text-gray-600">Your files are protected with end-to-end security.</p>
         </motion.div>
-        
-        <motion.div 
+
+        <motion.div
           className="p-6 bg-white rounded-2xl shadow hover:shadow-lg transition"
           variants={cardVariants}
           whileHover="hover"
@@ -110,8 +110,8 @@ export default function FileVaultLanding() {
           <h3 className="font-semibold text-lg mb-2 text-teal-700">⚡ Quick Access</h3>
           <p className="text-gray-600">Find and retrieve what you need instantly.</p>
         </motion.div>
-        
-        <motion.div 
+
+        <motion.div
           className="p-6 bg-white rounded-2xl shadow hover:shadow-lg transition"
           variants={cardVariants}
           whileHover="hover"
@@ -119,8 +119,8 @@ export default function FileVaultLanding() {
           <h3 className="font-semibold text-lg mb-2 text-teal-700">🗂️ Organized Vault</h3>
           <p className="text-gray-600">All your files neatly categorized for easy navigation.</p>
         </motion.div>
-        
-        <motion.div 
+
+        <motion.div
           className="p-6 bg-white rounded-2xl shadow hover:shadow-lg transition"
           variants={cardVariants}
           whileHover="hover"
