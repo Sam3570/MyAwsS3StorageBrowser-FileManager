@@ -26,7 +26,18 @@ export async function GET(request: NextRequest) {
 
     const result = await client.send(command);
 
-    return new Response(result.Body as any, {
+    if (!result.Body) {
+      throw new Error("Empty S3 response body");
+    }
+
+    // Convert the Body stream into a Uint8Array
+    const chunks: Uint8Array[] = [];
+    for await (const chunk of result.Body as any) {
+      chunks.push(typeof chunk === "string" ? Buffer.from(chunk) : chunk);
+    }
+    const fileBuffer = Buffer.concat(chunks);
+
+    return new Response(new Uint8Array(fileBuffer), {
       headers: {
         "Content-Type": result.ContentType || "application/octet-stream",
         "Content-Disposition": `attachment; filename="${encodeURIComponent(
