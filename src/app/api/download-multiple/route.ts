@@ -51,9 +51,11 @@ export async function GET(request: NextRequest) {
       zip.file(filename, fileBuffer);
     }
 
+    // Generate ZIP as Buffer
     const zipBuffer = await zip.generateAsync({ type: "nodebuffer" });
 
-    return new Response(zipBuffer, {
+    // ✅ Convert Buffer → Uint8Array for Response
+    return new Response(new Uint8Array(zipBuffer), {
       headers: {
         "Content-Type": "application/zip",
         "Content-Disposition": `attachment; filename="download.zip"`,
