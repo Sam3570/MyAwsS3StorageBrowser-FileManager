@@ -3,10 +3,10 @@ import { SESClient, SendEmailCommand } from "@aws-sdk/client-ses";
 
 // ✅ Initialize SES client with env vars
 const ses = new SESClient({
-  region: "ap-south-1",
+  region: process.env.MY_AWS_REGION,
   credentials: {
-    accessKeyId: process.env.ACCESS_KEY!,
-    secretAccessKey: process.env.SECRET_ACCESS_KEY!,
+    accessKeyId: process.env.MY_AWS_ACCESS_KEY!,
+    secretAccessKey: process.env.MY_AWS_SECRET_KEY!,
   },
 });
 
