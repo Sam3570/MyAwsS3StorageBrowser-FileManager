@@ -1,5 +1,9 @@
 import { clerkMiddleware } from '@clerk/nextjs/server'
 
+console.log("CLERK_SECRET_KEY:", process.env.CLERK_SECRET_KEY ? "✅ set" : "❌ missing");
+console.log("NEXT_PUBLIC_CLERK_PUBLISHABLE_KEY:", process.env.NEXT_PUBLIC_CLERK_PUBLISHABLE_KEY ? "✅ set" : "❌ missing");
+console.log("NEXT_PUBLIC_CLERK_FRONTEND_API:", process.env.NEXT_PUBLIC_CLERK_FRONTEND_API ? "✅ set" : "❌ missing");
+
 export default clerkMiddleware()
 
 export const config = {
