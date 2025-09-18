@@ -4,6 +4,10 @@ frontend:
     preBuild:
       commands:
         - npm ci --cache .npm --prefer-offline
+        - echo "MY_AWS_ACCESS_KEY=$MY_AWS_ACCESS_KEY" >> .env.production
+        - echo "MY_AWS_SECRET_KEY=$MY_AWS_SECRET_KEY" >> .env.production
+        - echo "MY_AWS_REGION=$MY_AWS_REGION" >> .env.production
+        - echo "MY_AWS_BUCKET=$MY_AWS_BUCKET" >> .env.production
     build:
       commands:
         - npm run build
