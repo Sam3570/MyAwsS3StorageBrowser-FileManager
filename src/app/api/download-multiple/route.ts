@@ -1,51 +1,70 @@
-// app/api/download-multiple/route.ts
-import { NextRequest, NextResponse } from "next/server";
+import { NextRequest } from "next/server";
 import { S3Client, GetObjectCommand } from "@aws-sdk/client-s3";
-import { PassThrough } from "stream";
-import archiver from "archiver";
+import JSZip from "jszip";
+import { Readable } from "stream";
 
-const s3 = new S3Client({
-  region: process.env.MY_AWS_REGION!,
+const client = new S3Client({
   credentials: {
-    accessKeyId: process.env.MY_AWS_ACCESS_KEY!,
-    secretAccessKey: process.env.MY_AWS_SECRET_KEY!,
+    accessKeyId: process.env.MY_AWS_ACCESS_KEY as string,
+    secretAccessKey: process.env.MY_AWS_SECRET_KEY as string,
   },
+  region: "ap-south-1",
 });
 
-export async function GET(req: NextRequest) {
-  const { searchParams } = new URL(req.url);
-  const keys = searchParams.getAll("keys");
+// Helper: Convert Node.js Readable to Buffer
+async function streamToBuffer(stream: any): Promise<Buffer> {
+  if (stream instanceof Readable) {
+    const chunks: Buffer[] = [];
+    for await (const chunk of stream) {
+      chunks.push(typeof chunk === "string" ? Buffer.from(chunk) : chunk);
+    }
+    return Buffer.concat(chunks);
+  }
+  throw new Error("Invalid stream type from S3");
+}
 
-  if (keys.length === 0) {
-    return NextResponse.json({ error: "No files selected" }, { status: 400 });
+export async function GET(request: NextRequest) {
+  const keys = request.nextUrl.searchParams.getAll("keys");
+
+  if (!keys || keys.length === 0) {
+    return new Response(JSON.stringify({ error: "Missing keys" }), {
+      status: 400,
+    });
   }
 
-  // Streaming ZIP
-  const passThrough = new PassThrough();
-  const archive = archiver("zip", { zlib: { level: 9 } });
-  archive.pipe(passThrough);
+  try {
+    const zip = new JSZip();
 
-  for (const key of keys) {
-    try {
+    for (const key of keys) {
       const command = new GetObjectCommand({
-        Bucket: process.env.MY_AWS_BUCKET!,
+        Bucket: "file-manager-nadt-s3",
         Key: key,
       });
-      const result = await s3.send(command);
-      if (result.Body) {
-        archive.append(result.Body as any, { name: key.split("/").pop()! });
-      }
-    } catch (err) {
-      console.error("Error fetching file:", key, err);
+
+      const result = await client.send(command);
+
+      if (!result.Body) continue;
+
+      const fileBuffer = await streamToBuffer(result.Body);
+      const filename = key.split("/").pop() || key;
+
+      zip.file(filename, fileBuffer);
     }
+
+    // Generate ZIP as Buffer
+    const zipBuffer = await zip.generateAsync({ type: "nodebuffer" });
+
+    // ✅ Convert Buffer → Uint8Array for Response
+    return new Response(new Uint8Array(zipBuffer), {
+      headers: {
+        "Content-Type": "application/zip",
+        "Content-Disposition": `attachment; filename="download.zip"`,
+      },
+    });
+  } catch (err) {
+    console.error("Download-multiple error:", err);
+    return new Response(JSON.stringify({ error: "Failed to create ZIP" }), {
+      status: 500,
+    });
   }
-
-  archive.finalize();
-
-  return new NextResponse(passThrough as any, {
-    headers: {
-      "Content-Type": "application/zip",
-      "Content-Disposition": `attachment; filename="files.zip"`,
-    },
-  });
 }
