@@ -61,6 +61,7 @@ const Navbar: React.FC = () => {
         {/* Right: User + Hamburger */}
         <div className="flex items-center space-x-4">
           <div className="hidden md:block">
+            <UserButton afterSignOutUrl="/" />
           </div>
           <button
             className="md:hidden p-2 rounded-md text-gray-600 hover:text-[#00C9B3]"
@@ -90,6 +91,7 @@ const Navbar: React.FC = () => {
             </Link>
           ))}
           <div className="pt-3 border-t border-gray-200">
+            <UserButton afterSignOutUrl="/" />
           </div>
         </div>
       )}

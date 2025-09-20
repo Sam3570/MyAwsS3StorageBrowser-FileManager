@@ -1,6 +1,8 @@
 import type { Metadata } from "next";
 import "./globals.css";
+import { ClerkProvider } from "@clerk/nextjs";
 
+import AuthWrapper from "./components/AuthWrapper";
 import Navbar from "./components/Navbar";
 import Footer from "./components/Footer";
 
@@ -11,12 +13,16 @@ export const metadata: Metadata = {
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
-    <html lang="en">
-      <body>
-        <Navbar />
-        <main className="pt-16 min-h-screen bg-gray-50">{children}</main>
-        <Footer />
-      </body>
-    </html>
+    <ClerkProvider publishableKey={process.env.NEXT_PUBLIC_CLERK_PUBLISHABLE_KEY}>
+      <html lang="en">
+        <body cz-shortcut-listen="true">
+          <AuthWrapper>
+            <Navbar />
+            <main className="pt-16 min-h-screen bg-gray-50">{children}</main>
+            <Footer />
+          </AuthWrapper>
+        </body>
+      </html>
+    </ClerkProvider>
   );
 }

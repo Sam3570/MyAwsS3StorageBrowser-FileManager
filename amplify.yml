@@ -3,13 +3,12 @@ frontend:
   phases:
     preBuild:
       commands:
-        - npm ci --cache .npm --prefer-offline
-        - echo "MY_AWS_ACCESS_KEY=$MY_AWS_ACCESS_KEY" >> .env.production
-        - echo "MY_AWS_SECRET_KEY=$MY_AWS_SECRET_KEY" >> .env.production
-        - echo "MY_AWS_REGION=$MY_AWS_REGION" >> .env.production
-        - echo "MY_AWS_BUCKET=$MY_AWS_BUCKET" >> .env.production
+        - npm ci
     build:
       commands:
+        - echo "CLERK_SECRET_KEY=$CLERK_SECRET_KEY" >> .env.production
+        - echo "NEXT_PUBLIC_CLERK_PUBLISHABLE_KEY=$NEXT_PUBLIC_CLERK_PUBLISHABLE_KEY" >> .env.production
+        - echo "CLERK_FRONTEND_API=$CLERK_FRONTEND_API" >> .env.production
         - npm run build
   artifacts:
     baseDirectory: .next
@@ -17,6 +16,4 @@ frontend:
       - '**/*'
   cache:
     paths:
-      - .next/cache/**/*
-      - .npm/**/*
       - node_modules/**/*
