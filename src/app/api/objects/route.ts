@@ -46,6 +46,9 @@
 import { NextRequest, NextResponse } from "next/server";
 import { S3Client, ListObjectsV2Command } from "@aws-sdk/client-s3";
 
+console.log("clerk key:-",process.env.NEXT_PUBLIC_CLERK_PUBLISHABLE_KEY)
+console.log("clerk secret key:-",process.env.CLERK_SECRET_KEY)
+
 // Re-use AWS client (configured from env vars)
 const client = new S3Client({
   credentials: {
