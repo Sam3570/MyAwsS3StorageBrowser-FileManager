@@ -24,7 +24,7 @@ export default function FileManager() {
   const [folders, setFolders] = useState<FolderType[]>([]);
   const [files, setFiles] = useState<FileType[]>([]);
   const [loading, setLoading] = useState(true);
-  const [prefix, setPrefix] = useState(""); 
+  const [prefix, setPrefix] = useState("");
 
   // pagination
   const [currentPage, setCurrentPage] = useState(1);
@@ -34,7 +34,7 @@ export default function FileManager() {
   const [search, setSearch] = useState("");
 
   // sorting
-  const [sortBy, setSortBy] = useState("name"); 
+  const [sortBy, setSortBy] = useState("name");
   const [sortOrder, setSortOrder] = useState<"asc" | "desc">("asc");
 
   // multi-select
@@ -49,7 +49,7 @@ export default function FileManager() {
       setFiles(data.files || []);
       setCurrentPage(1);
       setSearch("");
-      setSelectedFiles([]); // reset selection when folder changes
+      setSelectedFiles([]);
     } catch (err) {
       console.error("Error fetching objects:", err);
     } finally {
@@ -131,12 +131,17 @@ export default function FileManager() {
     );
   };
 
+  const handleDownload = async (key: string) => {
+    const res = await fetch(`/api/download?key=${encodeURIComponent(key)}`);
+    const data = await res.json();
+    if (data.url) {
+      window.location.href = data.url;
+    }
+  };
+
   const downloadSelected = () => {
     if (selectedFiles.length === 0) return;
-    // Here you’d ideally call your backend API to zip and download multiple files.
-    // Example: /api/download-multiple?keys=...
-    const query = selectedFiles.map((k) => `keys=${encodeURIComponent(k)}`).join("&");
-    window.location.href = `/api/download-multiple?${query}`;
+    selectedFiles.forEach((key) => handleDownload(key));
   };
 
   return (
@@ -260,12 +265,12 @@ export default function FileManager() {
                   </p>
                 </div>
               </div>
-              <a
-                href={`/api/download?key=${encodeURIComponent((item.data as FileType).Key)}`}
-                className="text-sm text-blue-600 hover:underline"
+              <button
+                onClick={() => handleDownload((item.data as FileType).Key)}
+                className="text-sm text-blue-600 hover:underline z-10 pointer-events-auto"
               >
                 Download
-              </a>
+              </button>
             </div>
           )
         )}

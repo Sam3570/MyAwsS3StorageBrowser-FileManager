@@ -1,5 +1,6 @@
 import { NextRequest } from "next/server";
 import { S3Client, GetObjectCommand } from "@aws-sdk/client-s3";
+import { getSignedUrl } from "@aws-sdk/s3-request-presigner";
 
 const client = new S3Client({
   credentials: {
@@ -24,31 +25,16 @@ export async function GET(request: NextRequest) {
       Key: key,
     });
 
-    const result = await client.send(command);
+    // Generate a signed URL valid for 1 hour
+    const signedUrl = await getSignedUrl(client, command, { expiresIn: 3600 });
 
-    if (!result.Body) {
-      throw new Error("Empty S3 response body");
-    }
-
-    // Convert the Body stream into a Uint8Array
-    const chunks: Uint8Array[] = [];
-    for await (const chunk of result.Body as any) {
-      chunks.push(typeof chunk === "string" ? Buffer.from(chunk) : chunk);
-    }
-    const fileBuffer = Buffer.concat(chunks);
-
-    return new Response(new Uint8Array(fileBuffer), {
-      headers: {
-        "Content-Type": result.ContentType || "application/octet-stream",
-        "Content-Disposition": `attachment; filename="${encodeURIComponent(
-          key.split("/").pop() || key
-        )}"`,
-      },
+    return new Response(JSON.stringify({ url: signedUrl }), {
+      headers: { "Content-Type": "application/json" },
     });
   } catch (err) {
     console.error("Download error:", err);
-    return new Response(JSON.stringify({ error: "File not found" }), {
-      status: 404,
+    return new Response(JSON.stringify({ error: "Failed to generate signed URL" }), {
+      status: 500,
     });
   }
 }
