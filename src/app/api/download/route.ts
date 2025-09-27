@@ -14,9 +14,7 @@ export async function GET(request: NextRequest) {
   const key = request.nextUrl.searchParams.get("key");
 
   if (!key) {
-    return new Response(JSON.stringify({ error: "Missing key" }), {
-      status: 400,
-    });
+    return new Response("Missing key", { status: 400 });
   }
 
   try {
@@ -28,13 +26,10 @@ export async function GET(request: NextRequest) {
     // Generate a signed URL valid for 1 hour
     const signedUrl = await getSignedUrl(client, command, { expiresIn: 3600 });
 
-    return new Response(JSON.stringify({ url: signedUrl }), {
-      headers: { "Content-Type": "application/json" },
-    });
+    // ✅ Redirect instead of returning JSON
+    return Response.redirect(signedUrl, 302);
   } catch (err) {
     console.error("Download error:", err);
-    return new Response(JSON.stringify({ error: "Failed to generate signed URL" }), {
-      status: 500,
-    });
+    return new Response("Failed to generate signed URL", { status: 500 });
   }
 }
