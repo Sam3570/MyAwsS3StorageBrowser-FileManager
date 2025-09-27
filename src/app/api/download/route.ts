@@ -10,6 +10,12 @@ const client = new S3Client({
   region: "ap-south-1",
 });
 
+// File types that can be previewed in the browser
+const PREVIEW_EXTENSIONS = [
+  "pdf", "png", "jpg", "jpeg", "gif", "webp",
+  "mp4", "webm", "ogg", "mp3", "wav", "txt"
+];
+
 export async function GET(request: NextRequest) {
   const key = request.nextUrl.searchParams.get("key");
 
@@ -23,11 +29,26 @@ export async function GET(request: NextRequest) {
       Key: key,
     });
 
-    // Generate a signed URL valid for 1 hour
     const signedUrl = await getSignedUrl(client, command, { expiresIn: 3600 });
 
-    // ✅ Redirect instead of returning JSON
-    return Response.redirect(signedUrl, 302);
+    // Get file extension
+    const ext = key.split(".").pop()?.toLowerCase() || "";
+
+    if (PREVIEW_EXTENSIONS.includes(ext)) {
+      // ✅ Previewable → open in browser
+      return Response.redirect(signedUrl, 302);
+    } else {
+      // ✅ Non-previewable → force download
+      return new Response(null, {
+        status: 302,
+        headers: {
+          Location: signedUrl,
+          "Content-Disposition": `attachment; filename="${encodeURIComponent(
+            key.split("/").pop() || "file"
+          )}"`,
+        },
+      });
+    }
   } catch (err) {
     console.error("Download error:", err);
     return new Response("Failed to generate signed URL", { status: 500 });

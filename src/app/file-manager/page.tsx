@@ -426,12 +426,35 @@ export default function EnhancedFileManager() {
                         })}
                       </p>
                     </div>
-                    <a
-                      href={`/api/download?key=${encodeURIComponent((item.data as FileType).Key)}`}
-                      className="w-full py-2 px-3 bg-gradient-to-r from-purple-500/20 to-pink-500/20 hover:from-purple-500/30 hover:to-pink-500/30 text-purple-300 hover:text-purple-200 text-center rounded-lg transition-all duration-200 text-sm font-medium border border-purple-500/20"
-                    >
-                      Download
-                    </a>
+                    <button
+  onClick={async () => {
+    const key = (item.data as FileType).Key;
+    const ext = key.split(".").pop()?.toLowerCase() || "";
+
+    const PREVIEW_EXTENSIONS = ["pdf", "png", "jpg", "jpeg", "gif", "webp", "mp4", "mp3", "txt"];
+    const isPreviewable = PREVIEW_EXTENSIONS.includes(ext);
+
+    // Always hit API
+    const url = `/api/download?key=${encodeURIComponent(key)}`;
+
+    if (isPreviewable) {
+      // 👇 open in new tab for previewable types
+      window.open(url, "_blank", "noopener,noreferrer");
+    } else {
+      // 👇 force navigation for downloadables
+      window.location.href = url;
+    }
+  }}
+  className="px-4 py-2 bg-gradient-to-r from-purple-500/20 to-pink-500/20 hover:from-purple-500/30 hover:to-pink-500/30 text-purple-300 hover:text-purple-200 rounded-lg transition-all duration-200 text-sm font-medium border border-purple-500/20"
+>
+  {(() => {
+    const key = (item.data as FileType).Key;
+    const ext = key.split(".").pop()?.toLowerCase() || "";
+    const PREVIEW_EXTENSIONS = ["pdf", "png", "jpg", "jpeg", "gif", "webp", "mp4", "mp3", "txt"];
+    return PREVIEW_EXTENSIONS.includes(ext) ? "Preview" : "Download";
+  })()}
+</button>
+
                   </div>
                 </motion.div>
               )
@@ -494,7 +517,7 @@ export default function EnhancedFileManager() {
                         })}
                       </p>
                     </div>
-                    <a
+                    <a 
                       href={`/api/download?key=${encodeURIComponent((item.data as FileType).Key)}`}
                       className="px-4 py-2 bg-gradient-to-r from-purple-500/20 to-pink-500/20 hover:from-purple-500/30 hover:to-pink-500/30 text-purple-300 hover:text-purple-200 rounded-lg transition-all duration-200 text-sm font-medium border border-purple-500/20"
                     >
