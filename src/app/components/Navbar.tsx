@@ -30,7 +30,7 @@ const Navbar = () => {
             </div>
             <div className="hidden sm:block">
               <span className="text-white font-bold text-xl bg-gradient-to-r from-blue-400 to-purple-400 bg-clip-text text-transparent">
-                NADT Research Center
+                NADT Training Center
               </span>
               <div className="text-xs text-gray-400 -mt-1">File Vault System</div>
             </div>

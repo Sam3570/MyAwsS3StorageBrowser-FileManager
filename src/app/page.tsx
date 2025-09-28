@@ -117,7 +117,7 @@ export default function FileVaultLanding() {
             <motion.div className="mb-8" variants={itemVariants}>
               <div className="inline-flex items-center gap-3 px-6 py-3 bg-white/10 backdrop-blur-md border border-white/20 rounded-full text-white/90 text-sm font-medium mb-8">
                 <Cloud className="w-4 h-4" />
-                <span>NADT Research Center File Vault</span>
+                <span>NADT Training Center File Vault</span>
               </div>
             </motion.div>
 

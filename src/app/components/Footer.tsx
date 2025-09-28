@@ -16,7 +16,7 @@ const Footer = () => {
               <p className="text-gray-300 text-sm">
                 © {new Date().getFullYear()}{" "}
                 <span className="font-bold bg-gradient-to-r from-blue-400 to-purple-400 bg-clip-text text-transparent">
-                  NADT Research Center
+                  NADT Training Center
                 </span>
                 . All Rights Reserved.
               </p>
