@@ -41,21 +41,21 @@ export default function EnhancedFileManager() {
   const [loading, setLoading] = useState(true);
   const [prefix, setPrefix] = useState("");
 
-  // pagination
+  // Pagination
   const [currentPage, setCurrentPage] = useState(1);
   const [itemsPerPage, setItemsPerPage] = useState(12);
 
-  // search
+  // Search
   const [search, setSearch] = useState("");
 
-  // sorting
+  // Sorting
   const [sortBy, setSortBy] = useState("name");
   const [sortOrder, setSortOrder] = useState<"asc" | "desc">("asc");
 
-  // multi-select
+  // Multi-select
   const [selectedFiles, setSelectedFiles] = useState<string[]>([]);
 
-  // view mode
+  // View mode
   const [viewMode, setViewMode] = useState<"grid" | "list">("grid");
 
   const fetchData = useCallback(async () => {
@@ -79,22 +79,17 @@ export default function EnhancedFileManager() {
     fetchData();
   }, [fetchData]);
 
-  // ... your entire JSX + logic remains unchanged ...
-
   if (loading) {
     return (
-      <div className="min-h-screen bg-slate-900/95 flex items-center justify-center relative">
-        {/* Animated background gradient */}
-        <div className="absolute inset-0 bg-gradient-to-br from-blue-600/10 via-purple-600/10 to-teal-600/10 opacity-50"></div>
-        
-        <motion.div 
+      <div className="min-h-screen bg-gradient-to-br from-white via-gray-50 to-gray-100 flex items-center justify-center relative">
+        <motion.div
           className="relative"
           initial={{ scale: 0.8, opacity: 0 }}
           animate={{ scale: 1, opacity: 1 }}
           transition={{ duration: 0.5 }}
         >
-          <div className="h-16 w-16 rounded-full border-4 border-blue-400/30 border-t-blue-400 animate-spin shadow-lg shadow-blue-500/20" />
-          <div className="absolute inset-0 h-16 w-16 rounded-full bg-gradient-to-br from-blue-400 to-purple-500 opacity-20 animate-pulse" />
+          <div className="h-16 w-16 rounded-full border-4 border-blue-500/30 border-t-blue-500 animate-spin shadow-lg shadow-blue-500/20" />
+          <div className="absolute inset-0 h-16 w-16 rounded-full bg-blue-500 opacity-20 animate-pulse" />
         </motion.div>
       </div>
     );
@@ -178,100 +173,94 @@ export default function EnhancedFileManager() {
   const getFileIcon = (ext: string) => {
     switch (ext) {
       case "pdf":
-        return <FileText className="h-5 w-5 text-red-400" />;
+        return <FileText className="h-5 w-5 text-red-500" />;
       case "txt":
-        return <FileText className="h-5 w-5 text-gray-400" />;
+        return <FileText className="h-5 w-5 text-gray-500" />;
       case "doc":
       case "docx":
-        return <FileDoc className="h-5 w-5 text-blue-400" />;
+        return <FileDoc className="h-5 w-5 text-blue-500" />;
       case "xls":
       case "xlsx":
       case "csv":
-        return <FileSpreadsheet className="h-5 w-5 text-green-400" />;
+        return <FileSpreadsheet className="h-5 w-5 text-green-500" />;
       case "zip":
       case "rar":
       case "7z":
-        return <FileArchive className="h-5 w-5 text-yellow-400" />;
+        return <FileArchive className="h-5 w-5 text-yellow-500" />;
       case "jpg":
       case "jpeg":
       case "png":
       case "gif":
-        return <FileImage className="h-5 w-5 text-purple-400" />;
+        return <FileImage className="h-5 w-5 text-purple-500" />;
       case "mp4":
       case "mkv":
       case "webm":
-        return <FileVideo className="h-5 w-5 text-pink-400" />;
+        return <FileVideo className="h-5 w-5 text-pink-500" />;
       case "mp3":
       case "wav":
-        return <FileAudio className="h-5 w-5 text-indigo-400" />;
+        return <FileAudio className="h-5 w-5 text-indigo-500" />;
       case "js":
       case "ts":
       case "html":
       case "json":
-        return <FileCode className="h-5 w-5 text-teal-400" />;
+        return <FileCode className="h-5 w-5 text-teal-500" />;
       default:
-        return <FileText className="h-5 w-5 text-gray-400" />;
+        return <FileText className="h-5 w-5 text-gray-500" />;
     }
   };
 
   return (
-    <div className="min-h-screen bg-slate-900/95 relative pt-20">
-      {/* Animated background gradient */}
-      <div className="absolute inset-0 bg-gradient-to-br from-blue-600/10 via-purple-600/10 to-teal-600/10 opacity-50"></div>
-      
+    <div className="min-h-screen bg-gradient-to-br from-white via-gray-50 to-gray-100 relative pt-20">
       <div className="relative container mx-auto px-6 py-8 max-w-7xl">
         {/* Header */}
-        <motion.div 
+        <motion.div
           className="mb-8"
           initial={{ y: -20, opacity: 0 }}
           animate={{ y: 0, opacity: 1 }}
           transition={{ duration: 0.5 }}
         >
-          <div className="bg-slate-800/50 backdrop-blur-sm border border-white/10 rounded-2xl p-6 shadow-lg shadow-blue-500/10">
+          <div className="bg-white border border-gray-200 rounded-2xl p-6 shadow-sm">
             <div className="flex items-center justify-between">
               <div className="flex items-center gap-4">
-                <div className="h-12 w-12 bg-gradient-to-br from-blue-400 to-purple-500 rounded-xl flex items-center justify-center shadow-lg shadow-blue-500/30">
+                <div className="h-12 w-12 bg-blue-500 rounded-xl flex items-center justify-center shadow-lg shadow-blue-500/20">
                   <Files className="h-6 w-6 text-white" />
                 </div>
                 <div>
-                  <h1 className="text-2xl font-bold bg-gradient-to-r from-blue-400 to-purple-400 bg-clip-text text-transparent">
+                  <h1 className="text-2xl font-bold text-gray-900">
                     File Manager
                   </h1>
-                  <p className="text-gray-300">
+                  <p className="text-gray-600">
                     {sortedItems.length} items • {formatFileSize(files.reduce((acc, f) => acc + f.Size, 0))}
                   </p>
                 </div>
               </div>
-              
               <div className="flex items-center gap-2">
                 {prefix && (
                   <motion.button
                     onClick={goBack}
                     whileHover={{ scale: 1.05 }}
                     whileTap={{ scale: 0.95 }}
-                    className="flex items-center gap-2 px-4 py-2 bg-slate-700/50 hover:bg-slate-600/50 text-gray-300 hover:text-white rounded-xl transition-all duration-300 border border-white/10"
+                    className="flex items-center gap-2 px-4 py-2 bg-white border border-gray-200 hover:bg-gray-50 text-gray-700 rounded-xl transition-all duration-300"
                   >
                     <ArrowLeft className="h-4 w-4" />
                     Back
                   </motion.button>
                 )}
-                
                 <motion.button
                   onClick={fetchData}
                   whileHover={{ scale: 1.05 }}
                   whileTap={{ scale: 0.95 }}
-                  className="flex items-center gap-2 px-4 py-2 bg-slate-700/50 hover:bg-slate-600/50 text-gray-300 hover:text-white rounded-xl transition-all duration-300 border border-white/10"
+                  className="flex items-center gap-2 px-4 py-2 bg-white border border-gray-200 hover:bg-gray-50 text-gray-700 rounded-xl transition-all duration-300"
                 >
                   <RefreshCcw className="h-4 w-4" />
                   Refresh
                 </motion.button>
-
                 {selectedFiles.length > 0 && (
                   <motion.button
                     onClick={downloadSelected}
                     whileHover={{ scale: 1.05 }}
                     whileTap={{ scale: 0.95 }}
-                    className="flex items-center gap-2 px-4 py-2 bg-gradient-to-r from-blue-500 to-purple-600 hover:from-blue-600 hover:to-purple-700 text-white rounded-xl transition-all duration-300 shadow-lg shadow-blue-500/30"
+                    className="flex items-center gap-2 px-4 py-2 bg-blue-500 hover:bg-blue-600 text-white rounded-xl transition-all duration-300 shadow-lg shadow-blue-500/20"
                   >
                     <Download className="h-4 w-4" />
                     Download ({selectedFiles.length})
@@ -283,19 +272,19 @@ export default function EnhancedFileManager() {
         </motion.div>
 
         {/* Breadcrumbs */}
-        <motion.div 
+        <motion.div
           className="mb-6"
           initial={{ y: -10, opacity: 0 }}
           animate={{ y: 0, opacity: 1 }}
           transition={{ duration: 0.5, delay: 0.1 }}
         >
-          <div className="flex items-center gap-2 p-4 bg-slate-800/30 backdrop-blur-sm border border-white/10 rounded-xl shadow-sm">
+          <div className="flex items-center gap-2 p-4 bg-white border border-gray-200 rounded-xl shadow-sm">
             <HardDrive className="h-4 w-4 text-gray-400" />
             {breadcrumbs.map((crumb, i) => (
               <div key={i} className="flex items-center gap-2">
-                <button 
-                  onClick={() => setPrefix(crumb.path)} 
-                  className="text-gray-300 hover:text-blue-400 transition-colors duration-200 font-medium hover:bg-slate-700/50 px-2 py-1 rounded-lg"
+                <button
+                  onClick={() => setPrefix(crumb.path)}
+                  className="text-gray-600 hover:text-blue-500 transition-colors duration-200 font-medium hover:bg-gray-50 px-2 py-1 rounded-lg"
                 >
                   {crumb.name}
                 </button>
@@ -306,13 +295,13 @@ export default function EnhancedFileManager() {
         </motion.div>
 
         {/* Controls */}
-        <motion.div 
+        <motion.div
           className="mb-6"
           initial={{ y: -10, opacity: 0 }}
           animate={{ y: 0, opacity: 1 }}
           transition={{ duration: 0.5, delay: 0.2 }}
         >
-          <div className="bg-slate-800/30 backdrop-blur-sm border border-white/10 rounded-xl p-4 shadow-sm">
+          <div className="bg-white border border-gray-200 rounded-xl p-4 shadow-sm">
             <div className="flex flex-col sm:flex-row gap-4 items-start sm:items-center justify-between">
               <div className="relative flex-1 max-w-md">
                 <Search className="absolute left-3 top-3 h-5 w-5 text-gray-400" />
@@ -324,18 +313,17 @@ export default function EnhancedFileManager() {
                     setSearch(e.target.value);
                     setCurrentPage(1);
                   }}
-                  className="w-full pl-10 pr-4 py-3 bg-slate-700/50 border border-white/10 rounded-xl focus:ring-2 focus:ring-blue-500/30 focus:border-blue-500/50 transition-all duration-200 text-gray-200 placeholder-gray-400"
+                  className="w-full pl-10 pr-4 py-3 bg-gray-50 border border-gray-200 rounded-xl focus:ring-2 focus:ring-blue-500/30 focus:border-blue-500/50 transition-all duration-200 text-gray-900 placeholder-gray-400"
                 />
               </div>
-              
               <div className="flex items-center gap-3">
-                <div className="flex items-center gap-2 text-sm text-gray-300">
+                <div className="flex items-center gap-2 text-sm text-gray-600">
                   <Calendar className="h-4 w-4" />
                   <span>Sort:</span>
                   <select
                     value={sortBy}
                     onChange={(e) => setSortBy(e.target.value)}
-                    className="bg-slate-700/50 border border-white/10 rounded-lg px-3 py-1.5 text-gray-200 focus:ring-2 focus:ring-blue-500/30"
+                    className="bg-gray-50 border border-gray-200 rounded-lg px-3 py-1.5 text-gray-900 focus:ring-2 focus:ring-blue-500/30"
                   >
                     <option value="name">Name</option>
                     <option value="size">Size</option>
@@ -343,22 +331,21 @@ export default function EnhancedFileManager() {
                   </select>
                   <button
                     onClick={() => setSortOrder((o) => (o === "asc" ? "desc" : "asc"))}
-                    className="px-2 py-1.5 bg-slate-700/50 hover:bg-slate-600/50 border border-white/10 rounded-lg transition-colors text-gray-200"
+                    className="px-2 py-1.5 bg-gray-50 hover:bg-gray-100 border border-gray-200 rounded-lg transition-colors text-gray-900"
                   >
                     {sortOrder === "asc" ? "↑" : "↓"}
                   </button>
                 </div>
-                
-                <div className="flex border border-white/10 rounded-lg overflow-hidden">
+                <div className="flex border border-gray-200 rounded-lg overflow-hidden">
                   <button
                     onClick={() => setViewMode("grid")}
-                    className={`p-2 transition-colors ${viewMode === "grid" ? "bg-blue-500 text-white" : "bg-slate-700/50 hover:bg-slate-600/50 text-gray-300"}`}
+                    className={`p-2 transition-colors ${viewMode === "grid" ? "bg-blue-500 text-white" : "bg-gray-50 hover:bg-gray-100 text-gray-600"}`}
                   >
                     <Grid3X3 className="h-4 w-4" />
                   </button>
                   <button
                     onClick={() => setViewMode("list")}
-                    className={`p-2 transition-colors ${viewMode === "list" ? "bg-blue-500 text-white" : "bg-slate-700/50 hover:bg-slate-600/50 text-gray-300"}`}
+                    className={`p-2 transition-colors ${viewMode === "list" ? "bg-blue-500 text-white" : "bg-gray-50 hover:bg-gray-100 text-gray-600"}`}
                   >
                     <List className="h-4 w-4" />
                   </button>
@@ -370,7 +357,7 @@ export default function EnhancedFileManager() {
 
         {/* Items */}
         {viewMode === "grid" ? (
-          <motion.div 
+          <motion.div
             className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-6 gap-4 mb-6"
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
@@ -383,13 +370,13 @@ export default function EnhancedFileManager() {
                   onClick={() => setPrefix((item.data as FolderType).Prefix)}
                   whileHover={{ scale: 1.05, y: -5 }}
                   whileTap={{ scale: 0.95 }}
-                  className="group cursor-pointer bg-slate-800/40 backdrop-blur-sm border border-white/10 rounded-xl p-4 hover:shadow-lg hover:shadow-blue-500/20 transition-all duration-300"
+                  className="group cursor-pointer bg-white border border-gray-200 rounded-xl p-4 hover:shadow-md hover:shadow-blue-500/20 transition-all duration-300"
                 >
                   <div className="flex flex-col items-center text-center gap-3">
-                    <div className="h-12 w-12 bg-blue-500/20 rounded-xl flex items-center justify-center group-hover:bg-blue-500/30 transition-colors">
-                      <Folder className="h-6 w-6 text-blue-400" />
+                    <div className="h-12 w-12 bg-blue-500 rounded-xl flex items-center justify-center group-hover:bg-blue-600 transition-colors">
+                      <Folder className="h-6 w-6 text-white" />
                     </div>
-                    <p className="font-medium text-sm text-gray-200 line-clamp-2">
+                    <p className="font-medium text-sm text-gray-900 line-clamp-2">
                       {(item.data as FolderType).Prefix.replace(prefix, "").replace(/\/$/, "")}
                     </p>
                   </div>
@@ -398,25 +385,25 @@ export default function EnhancedFileManager() {
                 <motion.div
                   key={i}
                   whileHover={{ scale: 1.02, y: -2 }}
-                  className="group bg-slate-800/40 backdrop-blur-sm border border-white/10 rounded-xl p-4 hover:shadow-lg hover:shadow-purple-500/20 transition-all duration-300"
+                  className="group bg-white border border-gray-200 rounded-xl p-4 hover:shadow-md hover:shadow-blue-500/20 transition-all duration-300"
                 >
                   <div className="flex flex-col gap-3">
                     <div className="flex items-center justify-between">
-                      <div className="h-10 w-10 bg-gradient-to-br from-purple-500/20 to-pink-500/20 rounded-lg flex items-center justify-center">
+                      <div className="h-10 w-10 bg-gray-100 rounded-lg flex items-center justify-center">
                         {getFileIcon(getExtension((item.data as FileType).Key))}
                       </div>
                       <input
                         type="checkbox"
                         checked={selectedFiles.includes((item.data as FileType).Key)}
                         onChange={() => toggleFileSelection((item.data as FileType).Key)}
-                        className="h-4 w-4 text-blue-500 rounded border-white/20 bg-slate-700 focus:ring-blue-500"
+                        className="h-4 w-4 text-blue-500 rounded border-gray-200 bg-white focus:ring-blue-500"
                       />
                     </div>
                     <div className="text-center">
-                      <p className="font-medium text-sm text-gray-200 line-clamp-2 mb-1">
+                      <p className="font-medium text-sm text-gray-900 line-clamp-2 mb-1">
                         {(item.data as FileType).Key.replace(prefix, "")}
                       </p>
-                      <p className="text-xs text-gray-400">
+                      <p className="text-xs text-gray-600">
                         {formatFileSize((item.data as FileType).Size)}
                       </p>
                       <p className="text-xs text-gray-500">
@@ -427,41 +414,34 @@ export default function EnhancedFileManager() {
                       </p>
                     </div>
                     <button
-  onClick={async () => {
-    const key = (item.data as FileType).Key;
-    const ext = key.split(".").pop()?.toLowerCase() || "";
-
-    const PREVIEW_EXTENSIONS = ["pdf", "png", "jpg", "jpeg", "gif", "webp", "mp4", "mp3", "txt"];
-    const isPreviewable = PREVIEW_EXTENSIONS.includes(ext);
-
-    // Always hit API
-    const url = `/api/download?key=${encodeURIComponent(key)}`;
-
-    if (isPreviewable) {
-      // 👇 open in new tab for previewable types
-      window.open(url, "_blank", "noopener,noreferrer");
-    } else {
-      // 👇 force navigation for downloadables
-      window.location.href = url;
-    }
-  }}
-  className="px-4 py-2 bg-gradient-to-r from-purple-500/20 to-pink-500/20 hover:from-purple-500/30 hover:to-pink-500/30 text-purple-300 hover:text-purple-200 rounded-lg transition-all duration-200 text-sm font-medium border border-purple-500/20"
->
-  {(() => {
-    const key = (item.data as FileType).Key;
-    const ext = key.split(".").pop()?.toLowerCase() || "";
-    const PREVIEW_EXTENSIONS = ["pdf", "png", "jpg", "jpeg", "gif", "webp", "mp4", "mp3", "txt"];
-    return PREVIEW_EXTENSIONS.includes(ext) ? "Preview" : "Download";
-  })()}
-</button>
-
+                      onClick={async () => {
+                        const key = (item.data as FileType).Key;
+                        const ext = key.split(".").pop()?.toLowerCase() || "";
+                        const PREVIEW_EXTENSIONS = ["pdf", "png", "jpg", "jpeg", "gif", "webp", "mp4", "mp3", "txt"];
+                        const isPreviewable = PREVIEW_EXTENSIONS.includes(ext);
+                        const url = `/api/download?key=${encodeURIComponent(key)}`;
+                        if (isPreviewable) {
+                          window.open(url, "_blank", "noopener,noreferrer");
+                        } else {
+                          window.location.href = url;
+                        }
+                      }}
+                      className="px-4 py-2 bg-blue-500 hover:bg-blue-600 text-white rounded-lg transition-all duration-200 text-sm font-medium shadow-sm"
+                    >
+                      {(() => {
+                        const key = (item.data as FileType).Key;
+                        const ext = key.split(".").pop()?.toLowerCase() || "";
+                        const PREVIEW_EXTENSIONS = ["pdf", "png", "jpg", "jpeg", "gif", "webp", "mp4", "mp3", "txt"];
+                        return PREVIEW_EXTENSIONS.includes(ext) ? "Preview" : "Download";
+                      })()}
+                    </button>
                   </div>
                 </motion.div>
               )
             )}
           </motion.div>
         ) : (
-          <motion.div 
+          <motion.div
             className="space-y-2 mb-6"
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
@@ -473,42 +453,42 @@ export default function EnhancedFileManager() {
                   key={i}
                   onClick={() => setPrefix((item.data as FolderType).Prefix)}
                   whileHover={{ scale: 1.01, x: 5 }}
-                  className="group cursor-pointer bg-slate-800/40 backdrop-blur-sm border border-white/10 rounded-xl p-4 hover:shadow-lg hover:shadow-blue-500/20 transition-all duration-300"
+                  className="group cursor-pointer bg-white border border-gray-200 rounded-xl p-4 hover:shadow-md hover:shadow-blue-500/20 transition-all duration-300"
                 >
                   <div className="flex items-center gap-4">
-                    <div className="h-10 w-10 bg-blue-500/20 rounded-lg flex items-center justify-center group-hover:bg-blue-500/30 transition-colors">
-                      <Folder className="h-5 w-5 text-blue-400" />
+                    <div className="h-10 w-10 bg-blue-500 rounded-lg flex items-center justify-center group-hover:bg-blue-600 transition-colors">
+                      <Folder className="h-5 w-5 text-white" />
                     </div>
                     <div className="flex-1">
-                      <p className="font-medium text-gray-200">
+                      <p className="font-medium text-gray-900">
                         {(item.data as FolderType).Prefix.replace(prefix, "").replace(/\/$/, "")}
                       </p>
-                      <p className="text-sm text-gray-400">Folder</p>
+                      <p className="text-sm text-gray-600">Folder</p>
                     </div>
-                    <ChevronRight className="h-5 w-5 text-gray-500 group-hover:text-blue-400 transition-colors" />
+                    <ChevronRight className="h-5 w-5 text-gray-500 group-hover:text-blue-500 transition-colors" />
                   </div>
                 </motion.div>
               ) : (
                 <motion.div
                   key={i}
                   whileHover={{ scale: 1.01, x: 2 }}
-                  className="bg-slate-800/40 backdrop-blur-sm border border-white/10 rounded-xl p-4 hover:shadow-lg hover:shadow-purple-500/20 transition-all duration-300"
+                  className="bg-white border border-gray-200 rounded-xl p-4 hover:shadow-md hover:shadow-blue-500/20 transition-all duration-300"
                 >
                   <div className="flex items-center gap-4">
                     <input
                       type="checkbox"
                       checked={selectedFiles.includes((item.data as FileType).Key)}
                       onChange={() => toggleFileSelection((item.data as FileType).Key)}
-                      className="h-4 w-4 text-blue-500 rounded border-white/20 bg-slate-700 focus:ring-blue-500"
+                      className="h-4 w-4 text-blue-500 rounded border-gray-200 bg-white focus:ring-blue-500"
                     />
-                    <div className="h-10 w-10 bg-gradient-to-br from-purple-500/20 to-pink-500/20 rounded-lg flex items-center justify-center">
+                    <div className="h-10 w-10 bg-gray-100 rounded-lg flex items-center justify-center">
                       {getFileIcon(getExtension((item.data as FileType).Key))}
                     </div>
                     <div className="flex-1">
-                      <p className="font-medium text-gray-200">
+                      <p className="font-medium text-gray-900">
                         {(item.data as FileType).Key.replace(prefix, "")}
                       </p>
-                      <p className="text-sm text-gray-400">
+                      <p className="text-sm text-gray-600">
                         {formatFileSize((item.data as FileType).Size)} • {" "}
                         {new Date((item.data as FileType).LastModified).toLocaleDateString("en-US", {
                           day: "2-digit",
@@ -517,9 +497,9 @@ export default function EnhancedFileManager() {
                         })}
                       </p>
                     </div>
-                    <a 
+                    <a
                       href={`/api/download?key=${encodeURIComponent((item.data as FileType).Key)}`}
-                      className="px-4 py-2 bg-gradient-to-r from-purple-500/20 to-pink-500/20 hover:from-purple-500/30 hover:to-pink-500/30 text-purple-300 hover:text-purple-200 rounded-lg transition-all duration-200 text-sm font-medium border border-purple-500/20"
+                      className="px-4 py-2 bg-blue-500 hover:bg-blue-600 text-white rounded-lg transition-all duration-200 text-sm font-medium shadow-sm"
                     >
                       Download
                     </a>
@@ -532,29 +512,29 @@ export default function EnhancedFileManager() {
 
         {/* Empty State */}
         {sortedItems.length === 0 && (
-          <motion.div 
+          <motion.div
             className="text-center py-12"
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.5 }}
           >
-            <div className="h-20 w-20 bg-slate-800/50 rounded-2xl flex items-center justify-center mx-auto mb-4">
+            <div className="h-20 w-20 bg-gray-50 border border-gray-200 rounded-2xl flex items-center justify-center mx-auto mb-4">
               <Files className="h-10 w-10 text-gray-500" />
             </div>
-            <h3 className="text-lg font-semibold text-gray-300 mb-2">No files found</h3>
-            <p className="text-gray-500">Try adjusting your search or navigate to a different folder.</p>
+            <h3 className="text-lg font-semibold text-gray-900 mb-2">No files found</h3>
+            <p className="text-gray-600">Try adjusting your search or navigate to a different folder.</p>
           </motion.div>
         )}
 
         {/* Pagination */}
         {totalPages > 1 && (
-          <motion.div 
+          <motion.div
             className="flex items-center justify-between mt-6"
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.5, delay: 0.4 }}
           >
-            <div className="flex items-center gap-2 text-sm text-gray-300">
+            <div className="flex items-center gap-2 text-sm text-gray-600">
               <span>Items per page:</span>
               <select
                 value={itemsPerPage}
@@ -562,7 +542,7 @@ export default function EnhancedFileManager() {
                   setItemsPerPage(Number(e.target.value));
                   setCurrentPage(1);
                 }}
-                className="bg-slate-700/50 border border-white/10 rounded-lg px-2 py-1 text-sm text-gray-200"
+                className="bg-gray-50 border border-gray-200 rounded-lg px-2 py-1 text-sm text-gray-900"
               >
                 {[6, 12, 24, 48].map((n) => (
                   <option key={n} value={n}>
@@ -571,7 +551,6 @@ export default function EnhancedFileManager() {
                 ))}
               </select>
             </div>
-
             <div className="flex items-center gap-2">
               <motion.button
                 disabled={currentPage === 1}
@@ -580,13 +559,13 @@ export default function EnhancedFileManager() {
                 whileTap={currentPage !== 1 ? { scale: 0.95 } : {}}
                 className={`px-3 py-1 rounded-lg text-sm transition-all duration-200 ${
                   currentPage === 1
-                    ? "bg-slate-800/50 text-gray-500 cursor-not-allowed"
-                    : "bg-slate-700/50 hover:bg-slate-600/50 text-gray-300 hover:text-white border border-white/10"
+                    ? "bg-gray-100 text-gray-400 cursor-not-allowed"
+                    : "bg-gray-50 hover:bg-gray-100 text-gray-900 border border-gray-200"
                 }`}
               >
                 Previous
               </motion.button>
-              <span className="text-sm text-gray-300 px-3">
+              <span className="text-sm text-gray-600 px-3">
                 Page {currentPage} of {totalPages}
               </span>
               <motion.button
@@ -596,8 +575,8 @@ export default function EnhancedFileManager() {
                 whileTap={currentPage !== totalPages ? { scale: 0.95 } : {}}
                 className={`px-3 py-1 rounded-lg text-sm transition-all duration-200 ${
                   currentPage === totalPages
-                    ? "bg-slate-800/50 text-gray-500 cursor-not-allowed"
-                    : "bg-slate-700/50 hover:bg-slate-600/50 text-gray-300 hover:text-white border border-white/10"
+                    ? "bg-gray-100 text-gray-400 cursor-not-allowed"
+                    : "bg-gray-50 hover:bg-gray-100 text-gray-900 border border-gray-200"
                 }`}
               >
                 Next

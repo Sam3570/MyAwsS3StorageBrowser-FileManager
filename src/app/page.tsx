@@ -48,8 +48,8 @@ export default function FileVaultLanding() {
       },
     },
     hover: {
-      y: -12,
-      scale: 1.05,
+      y: -8,
+      scale: 1.03,
       transition: {
         duration: 0.3,
         ease: "easeOut" as const,
@@ -97,14 +97,7 @@ export default function FileVaultLanding() {
   ];
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-slate-900 via-purple-900 to-slate-900">
-      {/* Animated background elements */}
-      <div className="absolute inset-0 overflow-hidden pointer-events-none">
-        <div className="absolute top-1/4 left-1/4 w-96 h-96 bg-gradient-to-r from-blue-500/20 to-purple-500/20 rounded-full blur-3xl animate-pulse"></div>
-        <div className="absolute bottom-1/4 right-1/4 w-80 h-80 bg-gradient-to-r from-teal-500/20 to-blue-500/20 rounded-full blur-3xl animate-pulse delay-1000"></div>
-        <div className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 w-64 h-64 bg-gradient-to-r from-purple-500/10 to-pink-500/10 rounded-full blur-2xl animate-pulse delay-500"></div>
-      </div>
-
+    <div className="min-h-screen bg-gradient-to-br from-white via-gray-50 to-gray-100">
       <main className="relative z-10">
         {/* Hero Section */}
         <motion.section
@@ -115,25 +108,25 @@ export default function FileVaultLanding() {
         >
           <div className="max-w-6xl mx-auto text-center">
             <motion.div className="mb-8" variants={itemVariants}>
-              <div className="inline-flex items-center gap-3 px-6 py-3 bg-white/10 backdrop-blur-md border border-white/20 rounded-full text-white/90 text-sm font-medium mb-8">
-                <Cloud className="w-4 h-4" />
+              <div className="inline-flex items-center gap-3 px-6 py-3 bg-white shadow-sm border border-gray-200 rounded-full text-gray-700 text-sm font-medium mb-8">
+                <Cloud className="w-4 h-4 text-blue-500" />
                 <span>NADT Training Center File Vault</span>
               </div>
             </motion.div>
 
             <motion.h1
-              className="text-6xl md:text-7xl lg:text-8xl font-black mb-8 bg-gradient-to-r from-white via-blue-100 to-purple-200 bg-clip-text text-transparent leading-tight"
+              className="text-5xl md:text-7xl font-extrabold mb-8 text-gray-900 leading-tight"
               variants={itemVariants}
             >
               Secure File
               <br />
-              <span className="bg-gradient-to-r from-blue-400 via-purple-400 to-teal-400 bg-clip-text text-transparent">
+              <span className="bg-gradient-to-r from-blue-500 to-teal-500 bg-clip-text text-transparent">
                 Vault System
               </span>
             </motion.h1>
 
             <motion.p
-              className="text-xl md:text-2xl text-gray-300 mb-12 max-w-4xl mx-auto leading-relaxed"
+              className="text-lg md:text-xl text-gray-600 mb-12 max-w-3xl mx-auto leading-relaxed"
               variants={itemVariants}
             >
               Experience next-generation file management with enterprise-grade
@@ -145,30 +138,18 @@ export default function FileVaultLanding() {
               className="flex flex-col sm:flex-row gap-6 justify-center items-center"
               variants={itemVariants}
             >
-              <motion.div
-                whileHover={{ scale: 1.05 }}
-                whileTap={{ scale: 0.95 }}
-                className="w-full sm:w-auto"
+              <Link
+                href="/file-manager"
+                className="inline-flex items-center gap-3 px-8 py-4 bg-gradient-to-r from-blue-500 to-teal-500 hover:from-blue-600 hover:to-teal-600 text-white font-semibold rounded-xl shadow-lg transition-all duration-300 text-lg group"
               >
-                <Link
-                  href="/file-manager"
-                  className="inline-flex items-center gap-3 px-8 py-4 bg-gradient-to-r from-blue-600 to-purple-600 hover:from-blue-700 hover:to-purple-700 text-white font-bold rounded-2xl shadow-2xl shadow-blue-500/25 transition-all duration-300 text-lg w-full sm:w-auto justify-center group"
-                >
-                  <FolderOpen className="w-6 h-6 group-hover:rotate-12 transition-transform duration-300" />
-                  Explore File Vault
-                </Link>
-              </motion.div>
+                <FolderOpen className="w-6 h-6 group-hover:rotate-12 transition-transform duration-300" />
+                Explore File Vault
+              </Link>
 
-              <motion.div
-                whileHover={{ scale: 1.05 }}
-                whileTap={{ scale: 0.95 }}
-                className="w-full sm:w-auto"
-              >
-                <button className="inline-flex items-center gap-3 px-8 py-4 bg-white/10 backdrop-blur-md border border-white/20 hover:bg-white/20 text-white font-semibold rounded-2xl transition-all duration-300 text-lg w-full sm:w-auto justify-center group">
-                  <FileText className="w-6 h-6 group-hover:scale-110 transition-transform duration-300" />
-                  View Documentation
-                </button>
-              </motion.div>
+              <Link href="/file-request" className="inline-flex items-center gap-3 px-8 py-4 bg-white border border-gray-200 hover:bg-gray-50 text-gray-700 font-semibold rounded-xl shadow-sm transition-all duration-300 text-lg group">
+                <FileText className="w-6 h-6 text-gray-600 group-hover:scale-110 transition-transform duration-300" />
+                Contact
+              </Link>
             </motion.div>
 
             {/* Stats */}
@@ -187,10 +168,10 @@ export default function FileVaultLanding() {
                   className="text-center"
                   variants={itemVariants}
                 >
-                  <div className="text-3xl md:text-4xl font-black bg-gradient-to-r from-blue-400 to-purple-400 bg-clip-text text-transparent mb-2">
+                  <div className="text-3xl md:text-4xl font-bold text-blue-600 mb-2">
                     {stat.value}
                   </div>
-                  <div className="text-gray-400 font-medium">{stat.label}</div>
+                  <div className="text-gray-500 font-medium">{stat.label}</div>
                 </motion.div>
               ))}
             </motion.div>
@@ -199,7 +180,7 @@ export default function FileVaultLanding() {
 
         {/* Features Section */}
         <motion.section
-          className="py-32 px-6 bg-gradient-to-b from-transparent to-black/50"
+          className="py-24 px-6 bg-white"
           initial="hidden"
           whileInView="visible"
           viewport={{ once: true, margin: "-200px" }}
@@ -207,16 +188,16 @@ export default function FileVaultLanding() {
         >
           <div className="max-w-7xl mx-auto">
             <motion.div className="text-center mb-20" variants={itemVariants}>
-              <h2 className="text-5xl md:text-6xl font-black mb-6 bg-gradient-to-r from-white to-gray-300 bg-clip-text text-transparent">
+              <h2 className="text-4xl md:text-5xl font-extrabold mb-6 text-gray-900">
                 Powerful Features
               </h2>
-              <p className="text-xl text-gray-400 max-w-3xl mx-auto">
+              <p className="text-lg text-gray-600 max-w-3xl mx-auto">
                 Built for security, designed for performance, crafted for teams
                 that demand excellence.
               </p>
             </motion.div>
 
-            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-10">
               {features.map((feature, index) => (
                 <motion.div
                   key={index}
@@ -224,15 +205,14 @@ export default function FileVaultLanding() {
                   variants={cardVariants}
                   whileHover="hover"
                 >
-                  <div className="absolute inset-0 bg-gradient-to-r from-blue-600/20 to-purple-600/20 rounded-3xl blur-xl opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
-                  <div className="relative p-8 bg-white/5 backdrop-blur-md border border-white/10 rounded-3xl hover:border-white/20 transition-all duration-500">
-                    <div className="inline-flex items-center justify-center w-16 h-16 bg-gradient-to-r from-blue-500 to-purple-500 rounded-2xl mb-6 group-hover:scale-110 transition-transform duration-300">
-                      <feature.icon className="w-8 h-8 text-white" />
+                  <div className="relative p-8 bg-white border border-gray-200 rounded-2xl shadow-sm hover:shadow-md transition-all duration-300">
+                    <div className="inline-flex items-center justify-center w-14 h-14 bg-gradient-to-r from-blue-500 to-teal-500 rounded-xl mb-6 group-hover:scale-110 transition-transform duration-300">
+                      <feature.icon className="w-7 h-7 text-white" />
                     </div>
-                    <h3 className="text-2xl font-bold text-white mb-4 group-hover:text-blue-300 transition-colors duration-300">
+                    <h3 className="text-xl font-semibold text-gray-900 mb-3">
                       {feature.title}
                     </h3>
-                    <p className="text-gray-400 leading-relaxed group-hover:text-gray-300 transition-colors duration-300">
+                    <p className="text-gray-600 leading-relaxed">
                       {feature.description}
                     </p>
                   </div>
@@ -244,7 +224,7 @@ export default function FileVaultLanding() {
 
         {/* CTA Section */}
         <motion.section
-          className="py-32 px-6"
+          className="py-24 px-6 bg-gradient-to-r from-blue-50 to-teal-50"
           initial="hidden"
           whileInView="visible"
           viewport={{ once: true, margin: "-100px" }}
@@ -252,7 +232,7 @@ export default function FileVaultLanding() {
         >
           <div className="max-w-5xl mx-auto text-center">
             <motion.h2
-              className="text-5xl md:text-6xl font-black mb-8 bg-gradient-to-r from-white to-gray-300 bg-clip-text text-transparent"
+              className="text-4xl md:text-5xl font-extrabold mb-8 text-gray-900"
               variants={itemVariants}
             >
               Ready to Transform
@@ -260,22 +240,20 @@ export default function FileVaultLanding() {
               Your File Management?
             </motion.h2>
             <motion.p
-              className="text-xl text-gray-400 mb-12 max-w-3xl mx-auto"
+              className="text-lg text-gray-600 mb-12 max-w-3xl mx-auto"
               variants={itemVariants}
             >
               Join thousands of organizations that trust our platform for their
               most critical document workflows.
             </motion.p>
             <motion.div variants={itemVariants}>
-              <motion.div whileHover={{ scale: 1.05 }} whileTap={{ scale: 0.95 }}>
-                <Link
-                  href="/file-manager"
-                  className="inline-flex items-center gap-3 px-12 py-6 bg-gradient-to-r from-teal-500 to-blue-500 hover:from-teal-600 hover:to-blue-600 text-white font-bold rounded-2xl shadow-2xl shadow-teal-500/25 transition-all duration-300 text-xl group"
-                >
-                  <FolderOpen className="w-7 h-7 group-hover:rotate-12 transition-transform duration-300" />
-                  Start Exploring Now
-                </Link>
-              </motion.div>
+              <Link
+                href="/file-manager"
+                className="inline-flex items-center gap-3 px-12 py-5 bg-gradient-to-r from-blue-500 to-teal-500 hover:from-blue-600 hover:to-teal-600 text-white font-semibold rounded-xl shadow-lg transition-all duration-300 text-lg group"
+              >
+                <FolderOpen className="w-7 h-7 group-hover:rotate-12 transition-transform duration-300" />
+                Start Exploring Now
+              </Link>
             </motion.div>
           </div>
         </motion.section>
