@@ -38,10 +38,10 @@ const Footer = () => {
                 <div className="absolute -bottom-1 left-0 w-0 h-0.5 bg-gradient-to-r from-blue-500 to-teal-500 group-hover:w-full transition-all duration-300"></div>
               </Link>
               <Link
-                href="/docs"
+                href="/file-request"
                 className="group relative text-gray-600 hover:text-gray-900 text-sm font-medium transition-all duration-300"
               >
-                Documentation
+                Contact
                 <div className="absolute -bottom-1 left-0 w-0 h-0.5 bg-gradient-to-r from-blue-500 to-teal-500 group-hover:w-full transition-all duration-300"></div>
               </Link>
             </div>
